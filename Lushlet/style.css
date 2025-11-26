@@ -1,0 +1,1020 @@
+/* 🌸 PASTEL SWEET SHOP STYLE 🌸
+   Organized + Optimized CSS
+   Fonts: 'Handlee' (cursive) + 'Poppins' (sans-serif)
+*/
+
+/* --- 🌷 GLOBAL RESET & BASE --- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #fffafc;
+  font-family: 'Poppins', sans-serif;
+  color: #85586f;
+}
+
+section {
+  padding-top: 40px;
+}
+
+h2, h3 {
+  margin: 0;
+}
+
+/* --- 🌸 HEADER & NAVBAR --- */
+header {
+  background-color: #ffeaf1;
+  border-bottom: 3px dashed #f4b6c2;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 60px;
+  background-color: #ffeaf1;
+  font-family: 'Poppins', sans-serif;  /* Ensures Poppins font is used */
+}
+
+.logo {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  font-size: 28px;
+  letter-spacing: 1px;
+  margin: 0;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #85586f;
+  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #d96c96;
+  transform: scale(1.05);
+}
+
+/* --- 🛒 CART ICON --- */
+.cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart img {
+  width: 26px;
+  height: 26px;
+}
+
+.cart-count {
+  background: #f7c5d7;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -6px;
+  right: -8px;
+}
+
+/* --- 🌸 HERO SECTION --- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #fff0f5;
+  padding: 80px 20px;
+}
+
+.hero-content h3 {
+  font-weight: 500;
+  color: #85586f;
+}
+
+.hero-content h2 {
+  font-family: 'Handlee', cursive;
+  font-size: 56px;
+  color: #d96c96;
+  margin: 8px 0;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: #85586f;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #f4b6c2;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #d96c96;
+  transform: scale(1.05);
+}
+
+/* --- 🍰 SWEET PICKS --- */
+.sweet-picks {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #fff9fb;
+}
+
+.sweet-picks h2 {
+  font-family: 'Handlee', cursive;
+  font-size: 32px;
+  color: #d96c96;
+  margin-bottom: 40px;
+}
+
+.cards,
+.sweet-items {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card,
+.sweet-card {
+  background-color: #ffffff;
+  border: 2px dashed #f4b6c2;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 20px;
+  width: 260px;
+  transition: transform 0.3s ease;
+}
+
+.sweet-card {
+  background: #ffeef3;
+  box-shadow: 3px 3px 0 #f4bfd5;
+  width: 200px;
+}
+
+.card:hover,
+.sweet-card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.card h3 {
+  color: #85586f;
+  margin: 12px 0 4px;
+}
+
+.card .price {
+  color: #d96c96;
+  font-weight: bold;
+}
+
+/* --- 🌷 BANNER --- */
+.banner {
+  background-color: #f4b6c2;
+  text-align: center;
+  color: white;
+  padding: 16px;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+/* --- 💕 WELCOME SECTION --- */
+.welcome-section {
+  background: url('yourgif.gif') no-repeat center/cover;
+  padding: 100px 0;
+  text-align: center;
+  color: #5c2b43;
+  position: relative;
+}
+
+.welcome-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 240, 245, 0.55);
+}
+
+.welcome-text {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.8);
+  display: inline-block;
+  padding: 25px 40px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 0 #f4bfd5;
+}
+
+.welcome-text h2 {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  margin-bottom: 10px;
+}
+
+.welcome-text p {
+  color: #834e68;
+  margin-bottom: 15px;
+}
+
+.welcome-text button {
+  background-color: #f4b6c2;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.welcome-text button:hover {
+  background-color: #e399ad;
+}
+
+/* --- 🌸 REVIEWS SECTION --- */
+.reviews {
+  text-align: center;
+  padding: 80px 0;
+  background: #fff9fb;
+}
+
+.reviews h2 {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  margin-bottom: 30px;
+}
+
+.review-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.review-card {
+  background: #ffe5ec;
+  border: 2px dashed #f4b6c2;
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 280px;
+  color: #834e68;
+  box-shadow: 3px 3px 0 #f4bfd5;
+  transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+}
+
+.review-card span {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+  color: #a17b8b;
+}
+
+/* --- 🌸 FOOTER --- */
+footer {
+  text-align: center;
+  background-color: #ffeaf1;
+  padding: 30px;
+  color: #85586f;
+  border-top: 3px dashed #f4b6c2;
+  margin-top: auto;
+}
+
+.footer-icons {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-icons span {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.footer-icons span:hover {
+  transform: scale(1.1);
+}
+
+/* --- Fix polaroid layout --- */
+.card {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.polaroids {
+  display: flex !important;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 5;
+  width: auto !important;
+}
+
+.polaroid {
+  position: relative;
+  margin-top: -60px;
+  z-index: 10;
+  background: #fff;
+  border: 6px solid #fff;
+  border-bottom-width: 18px;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+  width: 180px;
+}
+
+.polaroid img {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.washi, .pin {
+  position: absolute;
+  width: 80px;
+  z-index: 12;
+}
+
+.washi { top: -35px; left: 10px; transform: rotate(-6deg); }
+.washi.right { right: 10px; left: auto; transform: rotate(6deg); }
+
+.pin { top: -50px; left: 60px; width: 28px; transform: rotate(6deg); }
+.pin.right { right: 60px; left: auto; transform: rotate(-6deg); }
+
+/* --- 🌸 HEADER & NAVBAR --- */
+header {
+  background-color: #ffeaf1;
+  border-bottom: 3px dashed #f4b6c2;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 60px;
+  background-color: #ffeaf1;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  font-size: 28px;
+  letter-spacing: 1px;
+  margin: 0;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #85586f;
+  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #d96c96;
+  transform: scale(1.05);
+}
+
+/* --- 🌸 ABOUT SECTION --- */
+
+/* Text Fixing */
+.about-text {
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.6;
+  padding-left: 20px; /* Added padding to prevent text overlap */
+  z-index: 1;
+}
+
+/* Section Layout */
+.about-container {
+  max-width: 1000px; /* Adjusted for better fitting */
+  margin: 80px auto;
+}
+
+.about-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+  background: #ffeef6;
+  padding: 40px 30px 50px;
+  border: 3px dashed #f4b6c2;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 rgba(244,191,213,0.5);
+}
+
+/* Alternate Polaroid positions */
+.about-section:nth-child(even) {
+  background: #fff4ec;
+  flex-direction: row-reverse;
+}
+
+.polaroid {
+  flex: 0 0 auto;
+  background: white;
+  padding: 10px;
+  width: 180px;
+  border: 6px solid #fff;
+  border-bottom: 35px solid #fff;
+  border-radius: 8px;
+  box-shadow: 4px 8px 15px rgba(0,0,0,0.12);
+  transform: rotate(-3deg);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Floating Doodles */
+.floating-doodle {
+  position: absolute;
+  opacity: 0.7;
+  animation: float 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+.floating-doodle1 { top: 20px; left: 60px; animation-delay: 0s; }
+.floating-doodle2 { top: 80px; right: 50px; animation-delay: 1s; }
+.floating-doodle3 { bottom: 50px; left: 80px; animation-delay: 2s; }
+
+/* Animation for floating */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* Washi Tapes */
+.washi {
+  position: absolute;
+  width: 80px;
+  top: -25px;
+  left: 10px;
+  transform: rotate(-6deg);
+  opacity: 0.9;
+  z-index: 3;
+}
+
+.washi.right {
+  left: auto;
+  right: 10px;
+  transform: rotate(6deg);
+}
+
+/* Pins */
+.pin {
+  position: absolute;
+  top: -50px;
+  left: 60px;
+  width: 28px;
+  transform: rotate(6deg);
+  z-index: 3;
+}
+
+.pin.right {
+  left: auto;
+  right: 60px;
+  transform: rotate(-6deg);
+}
+
+.caption {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 6px;
+  color: #b07a9b;
+}
+
+/* Handwriting font for section titles */
+.about-text h3 {
+  font-family: 'Handlee', cursive;
+  font-size: 24px;
+  color: #d96c96;
+  margin-top: 0;
+}
+
+/* --- 🌸 FOOTER --- */
+footer {
+  text-align: center;
+  background-color: #ffeaf1;
+  padding: 30px;
+  color: #85586f;
+  border-top: 3px dashed #f4b6c2;
+}
+
+.footer-icons {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-icons span {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.footer-icons span:hover {
+  transform: scale(1.1);
+}
+
+/* --- Responsive for Mobile --- */
+@media (max-width: 768px) {
+  .about-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .polaroid {
+    width: 160px;
+    margin-bottom: 20px;
+  }
+
+  .washi {
+    width: 60px;
+    top: -20px;
+  }
+}
+
+/* --- 🌸 ABOUT SECTION --- */
+.about-container {
+  max-width: 1000px; /* Adjusted for better fitting */
+  margin: 80px auto;
+  position: relative; /* To keep doodles in place behind text */
+}
+
+.about-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+  background: #ffeef6;
+  padding: 40px 30px 50px;
+  border: 3px dashed #f4b6c2;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 rgba(244,191,213,0.5);
+  position: relative;
+}
+
+.about-section:nth-child(even) {
+  background: #fff4ec;
+  flex-direction: row-reverse;
+}
+
+/* --- Floating Doodles (Image-based) --- */
+.floating-doodle {
+  position: absolute;
+  opacity: 0.6;  /* Reduced opacity for subtleness */
+  animation: float 6s ease-in-out infinite;
+  z-index: 0;
+  width: 30px;  /* Small size */
+}
+
+.floating-doodle1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.floating-doodle2 {
+  top: 30%;
+  right: 10%;
+  animation-delay: 1s;
+}
+
+.floating-doodle3 {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+.floating-doodle4 {
+  top: 50%;
+  right: 30%;
+  animation-delay: 3s;
+}
+
+.floating-doodle5 {
+  bottom: 10%;
+  left: 40%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(3deg);
+  }
+}
+
+/* --- Floating Doodle Images --- */
+.floating-doodle1 img {
+  content: url('https://img.icons8.com/ios/452/star.png');
+}
+
+.floating-doodle2 img {
+  content: url('https://img.icons8.com/ios/452/heart.png');
+}
+
+.floating-doodle3 img {
+  content: url('https://img.icons8.com/ios/452/cake.png');
+}
+
+.floating-doodle4 img {
+  content: url('https://img.icons8.com/ios/452/flower.png');
+}
+
+.floating-doodle5 img {
+  content: url('https://img.icons8.com/ios/452/gift.png');
+}
+
+/* Adjusted the polaroid for better visual spacing */
+.polaroid {
+  flex: 0 0 auto;
+  background: white;
+  padding: 8px;
+  width: 180px;
+  border: 6px solid #fff;
+  border-bottom: 35px solid #fff;
+  border-radius: 8px;
+  box-shadow: 4px 8px 15px rgba(0,0,0,0.12);
+  transform: rotate(-3deg);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* =============================
+   📱 NAVBAR RESPONSIVE (NO JS)
+   Paste at the END of style.css
+============================= */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px 20px;
+}
+
+/* Make nav links in one row by default */
+.nav-links {
+  display: flex;
+  gap: 14px;
+  list-style: none;
+}
+
+/* Cart stays aligned */
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart img {
+  width: 28px;
+  height: 28px;
+}
+
+/* 🔽 When the screen becomes tablet/phone */
+@media (max-width: 768px) {
+
+  /* Navbar stacks vertically */
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  /* Links become vertical list */
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Make sure links are easy to tap */
+  .nav-links a {
+    padding: 10px 14px;
+    display: block;
+  }
+}
+
+/* 🔽 Extra small phones */
+@media (max-width: 480px) {
+  .navbar .logo {
+    font-size: 22px;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+  }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* left/right alignment */
+  align-items: center;
+  padding: 16px 60px;
+  background-color: #ffeaf1;
+  border-bottom: 3px dashed #f4b6c2;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  font-size: 28px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #85586f;
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: #d96c96; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between buttons and cart */
+}
+
+.cart {
+  position: relative;
+  font-size: 20px;
+  padding: 5px 10px;
+  border: 2px dashed #ff85c1;
+  border-radius: 8px;
+  background-color: #fff0f7;
+  box-shadow: 2px 2px 0 #f4bfd5;
+}
+
+.cart img { width: 28px; cursor: pointer; }
+
+.btn-login,
+.btn-register {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px dashed;
+  box-shadow: 2px 2px 0 #f4bfd5;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-login {
+  background-color: #ff85c1;
+  border-color: #ff5aa1;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #ff5aa1;
+  transform: translateY(-2px);
+}
+
+.btn-register {
+  background-color: #fcd1e8;
+  border-color: #f9a6d0;
+  color: #85586f;
+}
+
+.btn-register:hover {
+  background-color: #f9a6d0;
+  transform: translateY(-2px);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff5aa1;
+  color: white;
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar { flex-direction: column; gap: 12px; }
+}
+
+/* ============================
+   📱 FULL MOBILE RESPONSIVENESS
+   Applies to About Page ONLY
+============================= */
+
+@media (max-width: 820px) {
+
+  /* Container becomes full width */
+  .about-container {
+    width: 100%;
+    padding: 0 20px;
+    margin: 40px auto;
+  }
+
+  /* Section stacks vertically */
+  .about-section {
+    flex-direction: column !important;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  /* Polaroid adjusts */
+  .polaroid {
+    width: 75%;
+    max-width: 220px;
+    margin: 0 auto 20px auto;
+    transform: rotate(0deg) !important;
+  }
+
+  .polaroid img {
+    height: auto;
+  }
+
+  /* Text becomes nicer on mobile */
+  .about-text {
+    padding: 0;
+    font-size: 15px;
+  }
+
+  .about-text h3 {
+    font-size: 22px;
+  }
+
+  /* Fix floating doodles positions */
+  .floating-doodle {
+    width: 24px;
+    opacity: 0.45;
+  }
+
+  .floating-doodle1 { top: 5%; left: 5%; }
+  .floating-doodle2 { top: 20%; right: 8%; }
+  .floating-doodle3 { bottom: 15%; left: 12%; }
+  .floating-doodle4 { top: 45%; right: 20%; }
+  .floating-doodle5 { bottom: 5%; left: 30%; }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .about-section {
+    padding: 25px 15px;
+  }
+
+  .polaroid {
+    width: 85%;
+    max-width: 200px;
+  }
+
+  .about-text {
+    font-size: 14px;
+  }
+
+  .about-text h3 {
+    font-size: 20px;
+  }
+}
+
+
+/* --- MOBILE NAVBAR FIX (final version) --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: nowrap;
+        height: auto;
+        padding: 8px 15px;
+    }
+
+    .nav-links {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10px;
+        position: static;
+        background: none;
+        padding: 0;
+        border: none;
+        width: auto;
+    }
+
+    .nav-links a {
+        padding: 5px 0;
+        font-size: 14px;
+    }
+
+    .nav-right {
+        display: flex !important;
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    .btn-login,
+    .btn-register {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .cart {
+        padding: 5px 10px;
+    }
+
+    .cart-icon {
+        font-size: 14px;
+        padding: 5px;
+    }
+}
+

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lushlet | Memories</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --------------------------------------------------
+       🌸 BASE STYLES
+    -------------------------------------------------- */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fffafc;
+      color: #85586f;
+    }
+
+    h2 {
+      font-family: 'Handlee', cursive;
+      color: #d96c96;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    p { color: #a17b8b; text-align: center; }
+    img { max-width: 100%; display: block; }
+
+    /* --------------------------------------------------
+       🌸 MEMORIES HERO INTRO
+    -------------------------------------------------- */
+    #memories-hero {
+      width: 100%;
+      padding: 120px 0 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-box {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(10px);
+      padding: 45px 60px;
+      border-radius: 25px;
+      border: 3px solid #ffd6e6;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      max-width: 600px;
+      margin-top: 40px;
+      margin-left: 40px; /* ✅ shifted to the right */
+    }
+
+    .hero-box h2 {
+      font-family: 'Handlee', cursive;
+      font-size: 40px;
+      color: #d47da3;
+      margin-bottom: 15px;
+    }
+
+    .hero-box p {
+      font-size: 17px;
+      color: #b07690;
+      line-height: 1.6;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    /* --------------------------------------------------
+       🌸 NAV BAR
+    -------------------------------------------------- */
+    header {
+      margin-bottom: 20px; /* prevents stitches overlapping hero section */
+      background-color: #ffeaf1;
+      border-bottom: 3px dashed #f4b6c2;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar {
+  display: flex;
+  justify-content: space-between; /* left/right alignment */
+  align-items: center;
+  padding: 16px 60px;
+  background-color: #ffeaf1;
+  border-bottom: 3px dashed #f4b6c2;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  font-size: 28px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #85586f;
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: #d96c96; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between buttons and cart */
+}
+
+.cart {
+  position: relative;
+  font-size: 20px;
+  padding: 5px 10px;
+  border: 2px dashed #ff85c1;
+  border-radius: 8px;
+  background-color: #fff0f7;
+  box-shadow: 2px 2px 0 #f4bfd5;
+}
+
+.cart img { width: 28px; cursor: pointer; }
+
+.btn-login,
+.btn-register {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px dashed;
+  box-shadow: 2px 2px 0 #f4bfd5;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-login {
+  background-color: #ff85c1;
+  border-color: #ff5aa1;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #ff5aa1;
+  transform: translateY(-2px);
+}
+
+.btn-register {
+  background-color: #fcd1e8;
+  border-color: #f9a6d0;
+  color: #85586f;
+}
+
+.btn-register:hover {
+  background-color: #f9a6d0;
+  transform: translateY(-2px);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff5aa1;
+  color: white;
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar { flex-direction: column; gap: 12px; }
+}
+
+
+    /* --------------------------------------------------
+       🌸 GENERAL SECTION WRAPPER
+    -------------------------------------------------- */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      background: #fff5f8;
+      border: 4px dashed #ffccd9;
+      border-radius: 20px;
+      margin-bottom: 60px;
+    }
+
+    /* --------------------------------------------------
+       🌸 FEATURED MOMENTS
+    -------------------------------------------------- */
+    .featured-moments {
+      background: url('pastel-paper-texture.jpg') center/cover no-repeat;
+      border-radius: 15px;
+      padding: 80px 20px;
+      position: relative;
+    }
+
+    .moments,
+    .event-cards,
+    .influencer-cards,
+    .merch-cards,
+    .community-cards,
+    .throwback-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    /* Decorative Washi Tape */
+    .washi {
+      position: absolute;
+      width: 120px;
+      height: 40px;
+      background: #ffe1ed;
+      border-radius: 8px;
+      top: -20px;
+      left: 20px;
+      transform: rotate(-5deg);
+      opacity: 0.8;
+    }
+
+    .washi.yellow { background: #fff6b3; }
+    .washi.blue { background: #d8ecff; }
+
+    /* Doodles */
+    .doodle-heart {
+      position: absolute;
+      right: 25px;
+      top: 25px;
+      font-size: 28px;
+      color: #ff8fb3;
+      opacity: 0.7;
+    }
+
+    .doodle-star {
+      position: absolute;
+      left: 30px;
+      bottom: 20px;
+      font-size: 30px;
+      color: #ffbde6;
+    }
+
+    /* --------------------------------------------------
+       🌸 SCRAPBOOK CARDS
+    -------------------------------------------------- */
+    .card {
+      background: #fff;
+      border: 8px solid #fff;
+      border-bottom-width: 22px;
+      border-radius: 14px;
+      padding: 18px;
+      width: 320px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+      transform: rotate(-2deg);
+      transition: 0.3s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 20px;
+      width: 70px;
+      height: 25px;
+      background: rgba(255, 240, 180, 0.8);
+      border-radius: 6px;
+      transform: rotate(-5deg);
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    }
+
+    .card::after {
+      content: "★";
+      position: absolute;
+      bottom: -12px;
+      right: 18px;
+      font-size: 20px;
+      color: #ffd2e1;
+      opacity: 0.8;
+      transform: rotate(8deg);
+    }
+
+    .card:hover { transform: scale(1.07) rotate(0deg); }
+
+    .card img {
+  width: 100%;
+  height: 280px; /* was 200px — bigger/taller */
+  object-fit: cover; /* keeps image aspect ratio, fills the area */
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border: 4px solid #ffeaf1;
+}
+
+    /* pastel color themes */
+    .pastel-yellow { border-color: #fff5c8; }
+    .pastel-pink { border-color: #ffe0eb; }
+    .pastel-blue { border-color: #e4f3ff; }
+
+    .caption { font-size: 13px; color: #b07a9b; }
+
+    /* --------------------------------------------------
+       🌸 CTA
+    -------------------------------------------------- */
+    .cta {
+      background-color: #ffeaf1;
+      padding: 50px 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    /* --------------------------------------------------
+       🌸 FOOTER
+    -------------------------------------------------- */
+    footer {
+      background-color: #ffeaf1;
+      padding: 30px;
+      text-align: center;
+      border-top: 3px dashed #f4b6c2;
+    }
+
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 10px 0;
+    }
+
+    .footer-icons span:hover { transform: scale(1.1); }
+
+    /* --------------------------------------------------
+       🌸 RESPONSIVE
+    -------------------------------------------------- */
+    @media (max-width: 768px) {
+      .navbar { flex-direction: column; gap: 12px; }
+      .moments,
+      .event-cards,
+      .influencer-cards,
+      .merch-cards,
+      .community-cards,
+      .throwback-cards { flex-direction: column; }
+      section { padding: 40px 10px; }
+    }
+
+    .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between buttons and cart */
+}
+
+/* Cart icon */
+.cart {
+  position: relative;
+  font-size: 20px;
+  padding: 5px 10px;
+  border: 2px dashed #ff85c1;
+  border-radius: 8px;
+  background-color: #fff0f7;
+  box-shadow: 2px 2px 0 #f4bfd5;
+}
+
+/* Buttons */
+.btn-login,
+.btn-register {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px dashed;
+  box-shadow: 2px 2px 0 #f4bfd5;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-login {
+  background-color: #ff85c1;
+  border-color: #ff5aa1;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #ff5aa1;
+  transform: translateY(-2px);
+}
+
+.btn-register {
+  background-color: #fcd1e8;
+  border-color: #f9a6d0;
+  color: #85586f;
+}
+
+.btn-register:hover {
+  background-color: #f9a6d0;
+  transform: translateY(-2px);
+}
+
+/* Cart count bubble */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff5aa1;
+  color: white;
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- ✅ HEADER -->
+  <header>
+ <nav class="navbar">
+    <!-- Logo on the left -->
+    <h1 class="logo">Lushlet</h1>
+
+    <!-- Navigation links -->
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="menu.html">🍰 Menu</a></li>
+      <li><a href="memories.html" class="active">📖 Memories</a></li>
+      <li><a href="about.html">💖 About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+
+    <!-- Login/Register buttons BEFORE the Cart -->
+    <div class="nav-right">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="registration.html" class="btn-register">Register</a>
+      <div class="cart">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833314.png" alt="Cart" id="cart-icon" style="cursor:pointer;">
+        <span class="cart-count">0</span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+  <!-- ✅ SECTION 1 — FEATURED MOMENTS -->
+  <!-- 🌸 MEMORIES HERO INTRO -->
+  <section id="memories-hero" class="hero-intro">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="Intro.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-box">
+      <h2>Sweet Moments, Soft Memories</h2>
+      <p>A cozy collection of the little stories, snapshots, and sparkly moments that shaped Lushlet.</p>
+    </div>
+  </section>
+
+  <section class="featured-moments">
+    <h2>📸 Sweet Memories 📸</h2>
+    <p>Here’s our little scrapbook of sweet memories — from our first batch of fudgelets to collabs and the amazing people who’ve shared our treats 💌 Every photo, every smile, every bite… is a memory worth keeping.</p>
+
+    <div class="moments">
+      <div class="card"><img src="Memories/Behind the Scenes.png"><h3>Behind the Scenes 🍓</h3></div>
+      <div class="card"><img src="Memories/Weekend Pop-Up.png"><h3>Weekend Pop-Up 💕</h3></div>
+      <div class="card"><img src="Memories/Pastel Boxes.png"><h3>Pastel Boxes 🎀</h3></div>
+    </div>
+  </section>
+
+  <!-- ✅ SECTION 2 — COLLABS & EVENTS -->
+  <section class="collabs-events">
+    <h2>🎀 Collabs & Events 🎀</h2>
+    <p>✨ Collab with @Sanrio — Limited Edition Lushlet Sweets!</p>
+    <p>💌 Pop-up booth at SugarFest 2025 — our first ever event!</p>
+
+    <div class="event-cards">
+      <div class="card"><img src="Memories/Sanrio Collab.png"><p>✨Sanrio Collab✨</p></div>
+      <div class="card"><img src="Memories/SugarFest 2025 Booth.png"><p>💌SugarFest 2025 Booth💌</p></div>
+    </div>
+  </section>
+
+  <!-- ✅ SECTION 3 — INFLUENCER LOVE -->
+  <section class="influencer-love">
+    <h2>💫 Celebrity & Influencer Love 💫</h2>
+    <p>✨ People who shared, reviewed, or enjoyed our treats!</p>
+
+    <div class="influencer-cards">
+      <div class="card"><img src="Memories/Emma.png"><p>🍓 @ememyers — “Too cute to eat!”</p></div>
+      <div class="card"><img src="Memories/Jenna.png"><p>💖 @jennaortega — Lushlet haul video!</p></div>
+    </div>
+  </section>
+
+  <!-- ✅ SECTION 4 — MERCH MOMENTS -->
+  <section class="merch-moments">
+    <h2>🩷 Merch Moments 🩷</h2>
+    <p>Mini gallery of our merch & collab drops!</p>
+
+    <div class="merch-cards">
+      <div class="card"><img src="Memories/Merch totes.png"><p>💌 First merch drop — pastel totes!</p></div>
+      <div class="card"><img src="Memories/Merch Hoodies.png"><p>☁️ Lushlet x CozyCloud Hoodies</p></div>
+    </div>
+  </section>
+
+  <!-- ✅ SECTION 5 — COMMUNITY HIGHLIGHTS -->
+  <section class="community-highlights">
+    <h2>📸 Community Highlights</h2>
+    <p>We love your stories! Tag <strong>#LushletMemories</strong> to be featured 💖</p>
+
+    <div class="community-cards">
+      <div class="card"><img src="Memories/comm1.png"><p>✨ Featured Customer Post</p></div>
+      <div class="card"><img src="Memories/comm2.png"><p>🍰 Sweet customer story</p></div>
+    </div>
+  </section>
+
+  <!-- ✅ SECTION 6 — THROWBACK / TIMELINE -->
+  <section class="throwback">
+    <h2>🪞 Then vs Now</h2>
+    <p>From messy fudgelets to pastel perfection — we’ve come a long way ✨</p>
+
+    <div class="throwback-cards">
+      <div class="card"><img src="Memories/old1.png"><p>📌 Early Packaging</p></div>
+      <div class="card"><img src="Memories/New1.png"><p>🎀 Updated Pastel Look</p></div>
+    </div>
+  </section>
+
+  <!-- ✅ CTA -->
+  <section class="cta">
+    <h2>💌 Share Your Memories 💌</h2>
+    <p>Each treat is a story, and you’re part of ours. Share your moments with <strong>#LushletTreats</strong> so we can keep adding pages to this sweet little memory book 🍰💕</p>
+  </section>
+
+  <!-- ✅ FOOTER -->
+  <footer>
+    <p>📧 lushletsweets@gmail.com</p>
+    <div class="footer-icons">
+      <span>🌸 Instagram</span>
+      <span>🍰 Facebook</span>
+      <span>✨ TikTok</span>
+    </div>
+    <p>© 2025 Lushlet. All rights reserved.</p>
+  </footer>
+</body>
+</html>

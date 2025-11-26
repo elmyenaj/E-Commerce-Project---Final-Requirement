@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lushlet Sweets</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* 🌸 Hero Background */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 140px 20px;
+      background: url('baking.gif') no-repeat center/cover;
+      color: #fff;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 230, 240, 0.6);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.75);
+      display: inline-block;
+      padding: 30px 50px;
+      border-radius: 20px;
+      box-shadow: 2px 2px 0 #f4bfd5;
+    }
+
+    /* 🎀 Sweet Picks Enhancements */
+    .sweet-picks {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sweet-picks::before,
+    .sweet-picks::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 25px;
+      border-radius: 6px;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    .sweet-picks::before {
+      background: rgba(255, 229, 235, 0.8);
+      top: 35px;
+      left: 20%;
+      transform: rotate(-5deg);
+    }
+    .sweet-picks::after {
+      background: rgba(222, 245, 255, 0.8);
+      top: 60px;
+      right: 25%;
+      transform: rotate(6deg);
+    }
+
+    /* Floating doodles */
+    .floating-doodle {
+      position: absolute;
+      width: 70px;
+      opacity: 0.7;
+      animation: float 5s ease-in-out infinite;
+      z-index: 1;
+    }
+    .doodle1 { top: 40px; left: 50px; animation-delay: 0s; }
+    .doodle2 { top: 120px; right: 80px; animation-delay: 1s; }
+    .doodle3 { bottom: 80px; left: 90px; animation-delay: 2s; }
+    .doodle4 { bottom: 100px; right: 100px; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+
+    /* 🎗️ Ribbon labels */
+    .ribbon-label {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff5f8;
+      border: 2px dashed #f4b6c2;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-family: 'Handlee', cursive;
+      color: #834e68;
+      font-size: 14px;
+      box-shadow: 2px 2px 0 #f4bfd5;
+      z-index: 3;
+    }
+
+    /* 💕 Reviews Section */
+    .reviews {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px;
+      background: #fff9fb url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      border-top: 3px dashed #f7c5d1;
+      border-bottom: 3px dashed #f7c5d1;
+    }
+
+    /* Washi tapes for reviews */
+    .reviews::before,
+    .reviews::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 28px;
+      border-radius: 8px;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    .reviews::before {
+      background: rgba(255, 230, 240, 0.8);
+      top: 40px;
+      left: 15%;
+      transform: rotate(-4deg);
+    }
+    .reviews::after {
+      background: rgba(225, 245, 255, 0.8);
+      bottom: 40px;
+      right: 15%;
+      transform: rotate(5deg);
+    }
+
+    /* Doodles around reviews */
+    .review-doodle {
+      position: absolute;
+      width: 70px;
+      opacity: 0.7;
+      z-index: 1;
+      animation: float 6s ease-in-out infinite;
+    }
+    .review-doodle1 { top: 30px; left: 30px; animation-delay: 0s; }
+    .review-doodle2 { bottom: 40px; right: 50px; animation-delay: 2s; }
+
+    .reviews h2 {
+      font-family: 'Handlee', cursive;
+      color: #d96c96;
+      margin-bottom: 30px;
+      font-size: 26px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .review-cards {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+    .review-card {
+      background: #ffe5ec;
+      border: 2px dashed #f4b6c2;
+      border-radius: 14px;
+      padding: 20px;
+      width: 260px;
+      box-shadow: 3px 3px 0 #f4bfd5;
+      transition: transform .2s ease;
+      font-family: 'Poppins', sans-serif;
+      color: #834e68;
+    }
+    .review-card:hover { transform: translateY(-4px); }
+    .review-card span {
+      display: block;
+      margin-top: 10px;
+      font-style: italic;
+      color: #a17b8b;
+    }
+
+    /* Hide order button behind gif issue fix */
+    .hero button { position: relative; z-index: 2; }
+
+   .navbar {
+  display: flex;
+  justify-content: space-between; /* left/right alignment */
+  align-items: center;
+  padding: 16px 60px;
+  background-color: #ffeaf1;
+  border-bottom: 3px dashed #f4b6c2;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  font-size: 28px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #85586f;
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: #d96c96; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between buttons and cart */
+}
+
+.cart {
+  position: relative;
+  font-size: 20px;
+  padding: 5px 10px;
+  border: 2px dashed #ff85c1;
+  border-radius: 8px;
+  background-color: #fff0f7;
+  box-shadow: 2px 2px 0 #f4bfd5;
+}
+
+.cart img { width: 28px; cursor: pointer; }
+
+.btn-login,
+.btn-register {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px dashed;
+  box-shadow: 2px 2px 0 #f4bfd5;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-login {
+  background-color: #ff85c1;
+  border-color: #ff5aa1;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #ff5aa1;
+  transform: translateY(-2px);
+}
+
+.btn-register {
+  background-color: #fcd1e8;
+  border-color: #f9a6d0;
+  color: #85586f;
+}
+
+.btn-register:hover {
+  background-color: #f9a6d0;
+  transform: translateY(-2px);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff5aa1;
+  color: white;
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar { flex-direction: column; gap: 12px; }
+}
+
+
+
+  </style>
+</head>
+<body>
+  <header>
+<nav class="navbar">
+  <h1 class="logo">Lushlet</h1>
+
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">🏠 Home</a></li>
+    <li><a href="menu.html">🍰 Menu</a></li>
+    <li><a href="memories.html">📖 Memories</a></li>
+    <li><a href="about.html">💖 About</a></li>
+    <li><a href="contact.html">📞 Contact</a></li>
+  </ul>
+
+  <!-- Login/Register buttons BEFORE the cart -->
+  <div class="nav-right">
+    <a href="login.html" class="btn-login">Login</a>
+    <a href="registration.html" class="btn-register">Register</a>
+    <div class="cart">
+      <img src="https://cdn-icons-png.flaticon.com/512/833/833314.png" alt="Cart" id="cart-icon" style="cursor:pointer;">
+      <span class="cart-count">0</span>
+    </div>
+  </div>
+</nav>
+
+</header>
+
+  </div>
+</nav>
+
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h3>Welcome to</h3>
+      <h2>Lushlet</h2>
+      <p>Handmade cupcakes & pastries made with love 💕</p>
+      <a href="menu.html"><button class="btn-primary">Order Now</button></a>
+    </div>
+  </section>
+
+  <section class="sweet-picks">
+    <h2>🍓 This Week’s Sweet Picks 🍓</h2>
+
+    <!-- Floating doodles -->
+    <img src="Menu/Choco Chip Dream Crumblets.png" class="floating-doodle doodle1" alt="">
+    <img src="Menu/Berry Bliss Treatlets.png" class="floating-doodle doodle2" alt="">
+    <img src="Menu/Strawberry Mellow Lushlet.png" class="floating-doodle doodle3" alt="">
+    <img src="Menu/Vanilla Swirl Lushlet.png" class="floating-doodle doodle4" alt="">
+
+    <div class="cards">
+      <div class="card" style="position: relative;">
+        <div class="ribbon-label">⭐ Most Loved</div>
+        <img src="Menu/Berry Bliss Treatlets.png" alt="Dessert 1">
+        <h3>Berry Bliss Treatlets</h3>
+        <p class="price">₱20</p>
+      </div>
+      <div class="card" style="position: relative;">
+        <div class="ribbon-label">💖 Bestseller</div>
+        <img src="Menu/Strawberry Mellow Lushlet.png" alt="Dessert 2">
+        <h3>Strawberry Mellow Lushlet</h3>
+        <p class="price">₱35</p>
+      </div>
+      <div class="card" style="position: relative;">
+        <div class="ribbon-label">🎀 Affordable</div>
+        <img src="Menu/Heart Sugar Crumblets.png" alt="Dessert 3">
+        <h3>Heart Sugar Crumblets</h3>
+        <p class="price">₱15</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <img src="Menu/Caramel Swirl Fudglet.png" class="review-doodle review-doodle1" alt="">
+    <img src="Menu/Matcha Cloud Lushlet.png" class="review-doodle review-doodle2" alt="">
+    <h2>💬 What Our Customers Say 💕</h2>
+    <div class="review-cards">
+      <div class="review-card">
+        <p>“The Strawberry Lushlets are pure heaven! Soft, creamy, and sooo pretty 🍓”</p>
+        <span>— Ella M.</span>
+      </div>
+      <div class="review-card">
+        <p>“Every bite tastes like love! My favorite place to treat myself 🧁💖”</p>
+        <span>— Jamie R.</span>
+      </div>
+      <div class="review-card">
+        <p>“Perfect gifts for my friends! So cute and delicious 🎁✨”</p>
+        <span>— Claire B.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="banner">
+    💛 Baked Fresh Daily with Love & Sprinkles 💛
+  </section>
+
+  <footer>
+    <p>📧 lushletsweets@gmail.com</p>
+    <div class="footer-icons">
+      <span>🌸 Instagram</span>
+      <span>🍰 Facebook</span>
+      <span>✨ TikTok</span>
+    </div>
+    <p class="copyright">© 2025 Lushlet. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const cartIcon = document.getElementById("cartIcon");
+    cartIcon.onclick = () => alert("🛒 Cart feature coming soon!");
+  </script>
+</body>
+</html>
+

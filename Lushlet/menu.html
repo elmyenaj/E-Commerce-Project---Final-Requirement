@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lushlet | Menu</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Handlee&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* --- Filter Buttons --- */
+.filter-buttons{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:25px;}
+.filter-btn{background:#ffe5ec; border:2px dashed #f4b6c2; color:#85586f; padding:8px 18px; border-radius:30px; cursor:pointer; transition:all 0.2s; font-family:'Handlee', cursive; box-shadow:2px 2px 0 #f4b7cf;}
+.filter-btn.active, .filter-btn:hover{background:#ffd2e4; color:#d96c96; transform:translateY(-2px);}
+
+/* --- Cards grid --- */
+.cards{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; padding:30px 60px 80px; justify-items:center;}
+@media(max-width:1200px){.cards{grid-template-columns:repeat(3,1fr);} }
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr); padding:20px;} }
+@media(max-width:520px){.cards{grid-template-columns:1fr;}}
+
+/* --- Card --- */
+.card{width:260px; background:#fff9fb; border:2px dashed #f2bfd6; border-radius:14px; padding-bottom:14px; box-shadow:3px 3px 0 #f4bfd5; position:relative; cursor:pointer; transition: transform 0.15s ease; display:flex; flex-direction:column; align-items:center;}
+.card:hover{transform:translateY(-6px);}
+.card img { width: 100%; height: auto; display: block; border-radius: 10px; margin-top: 12px; object-fit: cover; }
+.card h3{font-family:'Handlee', cursive; font-size:16px; padding:8px 12px 0; color:#834e68; text-align:center;}
+.card-actions { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px 12px; width: 100%; min-height: 40px; box-sizing: border-box; }
+.price-tag{background:#ffd8e3;color:#5a4a4a;border-radius:20px;padding:6px 10px;font-weight:600;font-size:14px;display:inline-flex;gap:6px;align-items:center;}
+.action-buttons button{background:#f7e2ea;border:none;border-radius:50%;width:34px;height:34px;font-size:15px;margin-left:6px;cursor:pointer;transition: transform .15s, background .15s; color:#85586f;}
+.action-buttons button:hover{transform:scale(1.08); background:#ffd2e4; color:#d96c96;}
+.heart-filled{color:#e14a7b !important; transform:scale(1.1);}
+
+/* --- Modal --- */
+.modal{display:none; position:fixed; inset:0; z-index:1200; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); padding:30px;}
+.modal-content{width:760px; max-width:calc(100%-60px); background:#fffafc; border-radius:14px; padding:26px; box-shadow:0 20px 50px rgba(0,0,0,0.25); display:flex; gap:22px; position:relative; align-items:flex-start; flex-wrap:wrap;}
+.modal-content img{width:260px; border:5px solid #fff; border-radius:10px; box-shadow:3px 3px 0 #f4bfd5;}
+.modal-text{flex:1; display:flex; flex-direction:column; gap:10px;}
+.modal-text h3{margin:0; font-family:'Handlee', cursive; color:#834e68;}
+.modal-text p{margin:0; color:#a17b8b;}
+.ingredients{background:#fff9b0; padding:10px; border-radius:10px; font-family:'Handlee', cursive; box-shadow: inset 1px 1px 0 #f4c4a3;}
+.close-btn{position:absolute; right:18px; top:12px; font-size:22px; color:#85586f; cursor:pointer;}
+.close-btn:hover{color:#d96c96;}
+
+/* --- Cart Drawer --- */
+.cart-drawer { position: fixed; top: 0; right: -400px; width: 360px; height: 100%; background: #fffafc; box-shadow: -4px 0 20px rgba(0,0,0,0.25); z-index: 1500; padding: 20px; transition: right 0.3s ease; display: flex; flex-direction: column; gap: 10px; border-left: 3px dashed #f4bfd5; }
+.cart-drawer.open { right: 0; }
+.cart-header { display: flex; justify-content: space-between; align-items: center; }
+.cart-header h3 { margin: 0; font-family: 'Handlee', cursive; color: #834e68; }
+.cart-close { cursor: pointer; font-size: 22px; color: #85586f; }
+.cart-close:hover { color: #d96c96; }
+.cart-items { flex: 1; overflow-y: auto; margin-top: 10px; padding-bottom: 100px; }
+.cart-item { display: flex; align-items: center; gap: 10px; padding: 6px; border: 2px dashed #f4bfd6; border-radius: 10px; background: #fff9fb; }
+.cart-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 5px; border: 3px solid #fff; box-shadow: 2px 2px 0 #f4bfd5; }
+.cart-item-details { flex: 1; display: flex; flex-direction: column; }
+.cart-item-details span { font-family: 'Handlee', cursive; font-size: 14px; }
+.cart-item-qty { display: flex; gap: 5px; margin-top: 5px; }
+.cart-item-qty button { width: 24px; height: 24px; border: none; border-radius: 4px; background: #ffd2e4; color: #d96c96; cursor: pointer; font-weight: bold; }
+.cart-total { margin-top: 10px; font-family: 'Handlee', cursive; font-size: 16px; font-weight: 600; }
+.checkout-btn { position: sticky; bottom: 20px; margin-top: 10px; padding: 12px; background: #ffd2e4; color: #d96c96; font-family: 'Handlee', cursive; font-size: 16px; border: none; border-radius: 10px; cursor: pointer; box-shadow: 3px 3px 0 #f4bfd5; }
+.checkout-btn:hover { background: #f7a3b0; }
+
+.cart-count { font-weight: bold; color:#d96c96; margin-left:6px; transition: transform 0.2s ease; }
+
+.notif { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff4cc; padding: 15px 25px; border-radius: 12px; font-family: 'Handlee', cursive; font-size: 16px; display: none; z-index: 2000; box-shadow: 0 3px 10px rgba(0,0,0,0.25); text-align: center; min-width: 200px; }
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* left/right alignment */
+  align-items: center;
+  padding: 16px 60px;
+  background-color: #ffeaf1;
+  border-bottom: 3px dashed #f4b6c2;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  font-size: 28px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #85586f;
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: #d96c96; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between buttons and cart */
+}
+
+.cart {
+  position: relative;
+  font-size: 20px;
+  padding: 5px 10px;
+  border: 2px dashed #ff85c1;
+  border-radius: 8px;
+  background-color: #fff0f7;
+  box-shadow: 2px 2px 0 #f4bfd5;
+}
+
+.cart img { width: 28px; cursor: pointer; }
+
+.btn-login,
+.btn-register {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px dashed;
+  box-shadow: 2px 2px 0 #f4bfd5;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-login {
+  background-color: #ff85c1;
+  border-color: #ff5aa1;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #ff5aa1;
+  transform: translateY(-2px);
+}
+
+.btn-register {
+  background-color: #fcd1e8;
+  border-color: #f9a6d0;
+  color: #85586f;
+}
+
+.btn-register:hover {
+  background-color: #f9a6d0;
+  transform: translateY(-2px);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff5aa1;
+  color: white;
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar { flex-direction: column; gap: 12px; }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<nav class="navbar">
+  <h1 class="logo">Lushlet</h1>
+
+  <ul class="nav-links">
+    <li><a href="index.html">🏠 Home</a></li>
+    <li><a href="menu.html"class="active">🍰 Menu</a></li>
+    <li><a href="memories.html">📖 Memories</a></li>
+    <li><a href="about.html">💖 About</a></li>
+    <li><a href="contact.html">📞 Contact</a></li>
+  </ul>
+
+  <!-- Login/Register buttons BEFORE the cart -->
+  <div class="nav-right">
+    <a href="login.html" class="btn-login">Login</a>
+    <a href="registration.html" class="btn-register">Register</a>
+    <div class="cart">
+      <img src="https://cdn-icons-png.flaticon.com/512/833/833314.png" alt="Cart" id="cart-icon" style="cursor:pointer;">
+      <span class="cart-count">0</span>
+    </div>
+  </div>
+</nav>
+</header>
+
+<section class="sweet-picks">
+<h2>🍓 Our Sweet Collection 🍓</h2>
+<p style="color:#a17b8b; margin-top:10px;">Each dessert is a page from our pastel diary 💕</p>
+
+<div class="filter-buttons">
+  <button class="filter-btn active" data-category="all">All Sweets</button>
+  <button class="filter-btn" data-category="lushlet">Lushlets</button>
+  <button class="filter-btn" data-category="crumblet">Crumblets</button>
+  <button class="filter-btn" data-category="fudglet">Fudglets</button>
+  <button class="filter-btn" data-category="treatlet">Treatlets</button>
+</div>
+
+<div class="cards">
+  <!-- 10 Items -->
+  <!-- Lushlets -->
+  <div class="card" data-category="lushlet" data-name="Strawberry Mellow Lushlet" data-price="₱35" data-desc="Soft vanilla cupcake with fresh strawberry buttercream, topped with a candied strawberry." data-ingredients="Flour,Sugar,Butter,Fresh Strawberries,Vanilla Extract,Eggs" data-img="Menu/3DStrawberry Mellow Lushlet.png">
+    <img src="Menu/Strawberry Mellow Lushlet.png" alt="">
+    <h3>Strawberry Mellow Lushlet</h3>
+    <div class="card-actions"><span class="price-tag">₱35 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <div class="card" data-category="lushlet" data-name="Matcha Cloud Lushlet" data-price="₱40" data-desc="Fluffy green tea cupcake topped with white chocolate swirl." data-ingredients="Flour,Matcha Powder,Butter,White Chocolate,Sugar,Eggs" data-img="Menu/3DMatcha Cloud Lushlet.png">
+    <img src="Menu/Matcha Cloud Lushlet.png" alt=""><h3>Matcha Cloud Lushlet</h3><div class="card-actions"><span class="price-tag">₱40 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <div class="card" data-category="lushlet" data-name="Lavender Dream Lushlet" data-price="₱40" data-desc="Elegant lavender cupcake with light cream topping." data-ingredients="Flour,Butter,Lavender Essence,Sugar,Milk,Eggs" data-img="Menu/3DLavender Dream Lushlet.png">
+    <img src="Menu/Lavender Dream Lushlet.png" alt=""><h3>Lavender Dream Lushlet</h3><div class="card-actions"><span class="price-tag">₱40 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <div class="card" data-category="lushlet" data-name="Vanilla Swirl Lushlet" data-price="₱30" data-desc="Classic vanilla cupcake with creamy swirl icing." data-ingredients="Flour,Sugar,Vanilla,Butter,Eggs" data-img="Menu/3DVanilla Swirl Lushlet.png">
+    <img src="Menu/Vanilla Swirl Lushlet.png" alt=""><h3>Vanilla Swirl Lushlet</h3><div class="card-actions"><span class="price-tag">₱30 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <!-- Crumblets -->
+  <div class="card" data-category="crumblet" data-name="Heart Sugar Crumblets" data-price="₱15" data-desc="Heart-shaped butter cookies glazed with pastel pink icing." data-ingredients="Flour,Sugar,Butter,Milk,Vanilla" data-img="Menu/3DHeart Sugar Crumblets.png">
+    <img src="Menu/Heart Sugar Crumblets.png" alt=""><h3>Heart Sugar Crumblets</h3><div class="card-actions"><span class="price-tag">₱15 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <div class="card" data-category="crumblet" data-name="Choco Chip Dream Crumblets" data-price="₱20" data-desc="Crispy and chewy cookies filled with melty chocolate chips." data-ingredients="Flour,Sugar,Chocolate Chips,Butter,Eggs" data-img="Menu/3DChoco Chip Dream Crumblets.png">
+    <img src="Menu/Choco Chip Dream Crumblets.png" alt=""><h3>Choco Chip Dream Crumblets</h3><div class="card-actions"><span class="price-tag">₱20 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <!-- Fudglets -->
+  <div class="card" data-category="fudglet" data-name="Fudge Dream Fudglet" data-price="₱30" data-desc="Decadent chocolate fudge slice with silky ganache." data-ingredients="Cocoa,Butter,Sugar,Flour,Milk" data-img="Menu/3DFudge Dream Fudglet.png">
+    <img src="Menu/Fudge Dream Fudglet.png" alt=""><h3>Fudge Dream Fudglet</h3><div class="card-actions"><span class="price-tag">₱30 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <div class="card" data-category="fudglet" data-name="Caramel Swirl Fudglet" data-price="₱30" data-desc="Rich chocolate brownie topped with a swirl of caramel." data-ingredients="Flour,Butter,Cocoa,Caramel,Sugar" data-img="Menu/3DCaramel Swirl Fudglet.png">
+    <img src="Menu/Caramel Swirl Fudglet.png" alt=""><h3>Caramel Swirl Fudglet</h3><div class="card-actions"><span class="price-tag">₱30 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <!-- Treatlets -->
+  <div class="card" data-category="treatlet" data-name="Mini Heart Treatlets" data-price="₱20" data-desc="Adorable bite-sized lollipop cakes with pastel frosting, served on sticks." data-ingredients="Flour,Butter,Vanilla,Frosting,Eggs" data-img="Menu/3DMini Heart Treatlets.png">
+    <img src="Menu/Mini Heart Treatlets.png" alt=""><h3>Mini Heart Treatlets</h3><div class="card-actions"><span class="price-tag">₱20 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+  <div class="card" data-category="treatlet" data-name="Berry Bliss Treatlets" data-price="₱20" data-desc="Mini berry lollipop cakes with a raspberry drizzle, perfect for snacking." data-ingredients="Flour,Butter,Raspberries,Vanilla,Milk" data-img="Menu/3DBerry Bliss Treatlets.png">
+    <img src="Menu/Berry Bliss Treatlets.png" alt=""><h3>Berry Bliss Treatlets</h3><div class="card-actions"><span class="price-tag">₱20 ⭐</span><div class="action-buttons"><button class="card-add">+</button><button class="card-heart">♡</button></div></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>📧 lushletsweets@gmail.com</p>
+  <div class="footer-icons">
+    <span>🌸 Instagram</span>
+    <span>🍰 Facebook</span>
+    <span>✨ TikTok</span>
+  </div>
+  <p class="copyright">© 2025 Lushlet. All rights reserved.</p>
+</footer>
+
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <span class="cart-close" id="cart-close">×</span>
+  </div>
+  <div class="cart-items"></div>
+  <div class="cart-total">Total: ₱0</div>
+  <button class="checkout-btn" id="checkout-btn">Check Out</button>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+// Filter
+const filterButtons=document.querySelectorAll(".filter-btn");
+const cards=document.querySelectorAll(".card");
+filterButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    filterButtons.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const category=btn.getAttribute("data-category");
+    cards.forEach(c=>{
+      c.style.display=(category==="all"||c.getAttribute("data-category")===category)?"block":"none";
+    });
+  });
+});
+
+// Modal
+cards.forEach(card=>{
+  card.addEventListener("click",(e)=>{
+    if(!e.target.classList.contains("card-add")&&!e.target.classList.contains("card-heart")){
+      const modal=document.createElement("div");
+      modal.classList.add("modal");
+      modal.innerHTML=`
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <img src="${card.dataset.img}" alt="">
+          <div class="modal-text">
+            <h3>${card.dataset.name}</h3>
+            <p>${card.dataset.desc}</p>
+            <div class="ingredients">${card.dataset.ingredients.split(',').join('<br>')}</div>
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
+      modal.style.display="flex";
+      modal.querySelector(".close-btn").addEventListener("click",()=>{modal.remove();});
+    }
+  });
+});
+
+// Heart & Cart
+const notif=document.getElementById("notif");
+const cartIcon=document.getElementById("cart-icon");
+const cartDrawer=document.getElementById("cart-drawer");
+const cartClose=document.getElementById("cart-close");
+const cartItemsContainer=cartDrawer.querySelector(".cart-items");
+const cartTotalEl=cartDrawer.querySelector(".cart-total");
+const checkoutBtn=document.getElementById("checkout-btn");
+const cartCountEl = document.querySelector(".cart-count");
+
+let cart=[];
+
+function updateCartCount() {
+  let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  cartCountEl.innerText = totalQty;
+}
+
+cards.forEach(card=>{
+  const heart=card.querySelector(".card-heart");
+  const addBtn=card.querySelector(".card-add");
+
+  heart.addEventListener("click",e=>{
+    e.stopPropagation();
+    heart.classList.toggle("heart-filled");
+    notif.innerText=heart.classList.contains("heart-filled")?`You favorited ${card.dataset.name}`:`Removed ${card.dataset.name} from favorites`;
+    notif.style.display="block";
+    setTimeout(()=>notif.style.display="none",1200);
+  });
+
+  addBtn.addEventListener("click",e=>{
+    e.stopPropagation();
+    addToCart(card);
+  });
+});
+
+function addToCart(card){
+  const existing=cart.find(i=>i.name===card.dataset.name);
+  if(existing){ existing.qty++; }
+  else{ cart.push({name:card.dataset.name,price:parseInt(card.dataset.price.replace('₱','')),img:card.dataset.img,qty:1}); }
+  renderCart();
+  notif.innerText=`Added ${card.dataset.name} to cart`;
+  notif.style.display="block";
+  cartIcon.classList.add("bounce");
+  setTimeout(()=>cartIcon.classList.remove("bounce"),200);
+  setTimeout(()=>notif.style.display="none",1200);
+}
+
+function renderCart(){
+  cartItemsContainer.innerHTML="";
+  let subtotal=0;
+  cart.forEach(item=>{
+    subtotal+=item.price*item.qty;
+    const div=document.createElement("div");
+    div.classList.add("cart-item");
+    div.innerHTML=`
+      <img src="${item.img}" alt="">
+      <div class="cart-item-details">
+        <span>${item.name}</span>
+        <div class="cart-item-qty">
+          <button class="dec">-</button>
+          <span>${item.qty}</span>
+          <button class="inc">+</button>
+        </div>
+      </div>`;
+    const dec=div.querySelector(".dec");
+    const inc=div.querySelector(".inc");
+    dec.addEventListener("click",()=>{
+      if(item.qty>1)item.qty--; 
+      else cart=cart.filter(i=>i!==item); 
+      renderCart();
+    });
+    inc.addEventListener("click",()=>{
+      item.qty++; 
+      renderCart();
+    });
+    cartItemsContainer.appendChild(div);
+  });
+
+  const total=subtotal;
+
+  cartTotalEl.innerHTML=`
+    <div style="font-size:14px; color:#a17b8b; margin-bottom:4px;">
+      Total: ₱${subtotal}
+    </div>
+    <div style="font-size:16px; font-weight:600; color:#834e68;">
+      Total: ₱${total}
+    </div>
+  `;
+
+  updateCartCount(); // update cart icon
+}
+
+// Cart Drawer
+cartIcon.addEventListener("click",()=>cartDrawer.classList.add("open"));
+cartClose.addEventListener("click",()=>cartDrawer.classList.remove("open"));
+
+// Checkout
+checkoutBtn.addEventListener("click",()=>{
+  notif.innerText="Delivery in progress! Thank you for checking out!";
+  notif.style.display="block";
+  setTimeout(()=>notif.style.display="none",2000);
+  cart=[];
+  renderCart();
+});
+</script>
+</body>
+</html>

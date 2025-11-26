@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lushlet | Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #fff6fa;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar same as other pages */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 60px;
+      background-color: #ffeaf1;
+      border-bottom: 3px dashed #f4b6c2;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Handlee', cursive;
+      color: #d96c96;
+      font-size: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #85586f;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: #d96c96; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart {
+      position: relative;
+      font-size: 20px;
+      padding: 5px 10px;
+      border: 2px dashed #ff85c1;
+      border-radius: 8px;
+      background-color: #fff0f7;
+      box-shadow: 2px 2px 0 #f4bfd5;
+    }
+
+    .cart img { width: 28px; cursor: pointer; }
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background: #ff5aa1;
+      color: white;
+      font-size: 12px;
+      padding: 2px 5px;
+      border-radius: 50%;
+    }
+
+    .btn-login,
+    .btn-register {
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 2px dashed;
+      box-shadow: 2px 2px 0 #f4bfd5;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-login {
+      background-color: #ff85c1;
+      border-color: #ff5aa1;
+      color: white;
+    }
+
+    .btn-login:hover { background-color: #ff5aa1; transform: translateY(-2px); }
+
+    .btn-register {
+      background-color: #fcd1e8;
+      border-color: #f9a6d0;
+      color: #85586f;
+    }
+
+    .btn-register:hover { background-color: #f9a6d0; transform: translateY(-2px); }
+
+    /* Login Card */
+    .auth-container {
+      max-width: 420px;
+      margin: 100px auto;
+      background: #ffe5ef;
+      padding: 40px;
+      border-radius: 25px;
+      border: 3px dashed #f4b6c2;
+      box-shadow: 4px 4px 0 #f4bfd5;
+      text-align: center;
+      position: relative;
+    }
+
+    .auth-title {
+      font-family: "Handlee", cursive;
+      font-size: 32px;
+      color: #d96c96;
+      margin-bottom: 20px;
+    }
+
+    .auth-form .form-group {
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    .auth-form label {
+      font-weight: 600;
+      color: #834e68;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px dashed #f4b6c2;
+      background: #fff;
+      margin-top: 6px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 12px;
+      background: #ffb3ca;
+      border: 2px dashed #f48fb1;
+      border-radius: 14px;
+      margin-top: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #834e68;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      background: #ff9fbe;
+    }
+
+    .switch-text {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #a16b86;
+    }
+
+    .switch-text a {
+      color: #d96c96;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .switch-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Success overlay */
+    .success-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 999;
+      font-family: 'Handlee', cursive;
+      color: #d96c96;
+      font-size: 24px;
+      display: none;
+    }
+
+    .success-overlay span {
+      font-size: 50px;
+      margin-bottom: 20px;
+      color: #ff85c1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1 class="logo">Lushlet</h1>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="menu.html">🍰 Menu</a></li>
+      <li><a href="memories.html">📖 Memories</a></li>
+      <li><a href="about.html">💖 About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="registration.html" class="btn-register">Register</a>
+      <div class="cart">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833314.png" alt="Cart">
+        <span class="cart-count">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Card -->
+  <div class="auth-container">
+    <h1 class="auth-title">Welcome Back ♡</h1>
+
+    <form class="auth-form" id="loginForm">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" required />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="auth-btn">Login</button>
+
+      <p class="switch-text">
+        Don't have an account? <a href="registration.html">Register here</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Success Overlay -->
+<div class="success-overlay" id="successOverlay">
+  <div class="overlay-box">
+    <span class="emoji">🎉</span>
+    <p>Login Successful!</p>
+    <p>Redirecting to homepage...</p>
+  </div>
+</div>
+
+<!-- Footer -->
+  <footer>
+    <p>📧 lushletsweets@gmail.com</p>
+    <div class="footer-icons">
+      <span>🌸 Instagram</span>
+      <span>🍰 Facebook</span>
+      <span>✨ TikTok</span>
+    </div>
+    <p>© 2025 Lushlet. All rights reserved.</p>
+  </footer>
+
+<style>
+.success-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+  font-family: 'Handlee', cursive;
+  color: #d96c96;
+  font-size: 22px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.success-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.overlay-box {
+  background: #ffeaf1;
+  border: 3px dashed #f4b6c2;
+  border-radius: 20px;
+  padding: 40px 50px;
+  text-align: center;
+  animation: popIn 0.5s ease forwards;
+  box-shadow: 4px 4px 0 #f4bfd5;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.emoji {
+  font-size: 50px;
+  display: block;
+  margin-bottom: 20px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+</style>
+
+<script>
+const loginForm = document.getElementById('loginForm');
+const overlay = document.getElementById('successOverlay');
+
+loginForm.addEventListener('submit', function(e) {
+  e.preventDefault(); // prevent actual form submission
+
+  // Show overlay with cute animation
+  overlay.classList.add('show');
+
+  // Animate page transition after 2.5s
+  setTimeout(() => {
+    overlay.querySelector('.overlay-box').style.transform = 'scale(0) rotate(-10deg)';
+    overlay.style.opacity = '0';
+  }, 2000);
+
+  // Redirect after animation ends
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 2500);
+});
+</script>
+
+</body>
+</html>
